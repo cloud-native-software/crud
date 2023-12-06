@@ -18,13 +18,8 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<Student>> getStudents() {
-        return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<List<Student>> getStudentsSortedBy(@RequestParam String field) {
-        return new ResponseEntity<>(studentService.getStudentsSortedBy(field), HttpStatus.OK);
+    public ResponseEntity<List<Student>> getStudents(@RequestParam int pageNumber, @RequestParam int pageSize, @RequestParam String sortBy) {
+        return new ResponseEntity<>(studentService.getStudents(pageNumber, pageSize, sortBy), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentService {
-    List<Student> getStudents();
-    List<Student> getStudentsSortedBy(String field);
+    List<Student> getStudents(int pageNumber, int pageSize, String sortBy);
     Student getStudentById(Long id);
     void addStudent(Student newStudent);
     void deleteStudent(Long id);
