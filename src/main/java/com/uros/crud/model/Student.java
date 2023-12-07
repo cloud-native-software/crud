@@ -1,10 +1,13 @@
 package com.uros.crud.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
@@ -15,6 +18,7 @@ import lombok.*;
 public class Student {
     @Id
     @GeneratedValue
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     private String name;
     private String email;

@@ -27,7 +27,6 @@ public class DataLoader implements CommandLineRunner {
                     "alex@gmail.com"
             );
 
-
             studentRepository.saveAll(List.of(mariam, alex));
     }
 }

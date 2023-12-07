@@ -4,12 +4,9 @@ import com.uros.crud.model.Student;
 import com.uros.crud.repository.StudentRepository;
 import com.uros.crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -17,10 +14,8 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public List<Student> getStudents(int pageNumber, int pageSize, String sortBy) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        System.out.println(pageable);
-        return studentRepository.findAll(pageable).get().toList();
+    public Page<Student> getStudents(Pageable pageable) {
+        return studentRepository.findAll(pageable);
     }
 
     @Override
