@@ -1,6 +1,7 @@
 package com.uros.crud.service;
 
 import com.uros.crud.model.Student;
+import com.uros.crud.model.StudentFilterCriteria;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +12,5 @@ public interface StudentService {
     void addStudent(Student newStudent);
     void deleteStudent(Long id);
     void updateStudent(Long id, Student updatedStudent);
+    List<Student>filterStudents(StudentFilterCriteria student);
 }

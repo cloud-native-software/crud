@@ -19,12 +19,16 @@ public class DataLoader implements CommandLineRunner {
             Student mariam = new Student(
                     1L,
                     "Mariam",
-                    "mariam@gmail.com"
+                    "mariam@gmail.com",
+                    1
+
             );
             Student alex = new Student(
                     2L,
                     "Alex",
-                    "alex@gmail.com"
+                    "alex@gmail.com",
+                    2
+
             );
 
 

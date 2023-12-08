@@ -1,6 +1,7 @@
 package com.uros.crud.controller;
 
 import com.uros.crud.model.Student;
+import com.uros.crud.model.StudentFilterCriteria;
 import com.uros.crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -43,5 +45,9 @@ public class StudentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
+    }
+    @GetMapping("filtred")
+    public ResponseEntity<List<Student>>  filter(@ModelAttribute StudentFilterCriteria studentFilterCriteria){
+        return new ResponseEntity<>(studentService.filterStudents(studentFilterCriteria),HttpStatus.OK);
     }
 }

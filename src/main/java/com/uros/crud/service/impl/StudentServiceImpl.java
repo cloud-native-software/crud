@@ -1,6 +1,7 @@
 package com.uros.crud.service.impl;
 
 import com.uros.crud.model.Student;
+import com.uros.crud.model.StudentFilterCriteria;
 import com.uros.crud.repository.StudentRepository;
 import com.uros.crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,9 @@ public class StudentServiceImpl implements StudentService {
         student.setName(updatedStudent.getName());
         student.setEmail(updatedStudent.getEmail());
         studentRepository.save(student);
+    }
+
+    public List<Student> filterStudents(StudentFilterCriteria student) {
+        return studentRepository.findStudentsByNameAndEmailAndGradeAndMinMaxGrade(student.getName(), student.getEmail(), student.getGrade(), student.getMinGrade(), student.getMaxGrade());
     }
 }
