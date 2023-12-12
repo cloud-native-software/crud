@@ -3,9 +3,14 @@ package com.uros.crud.service.impl;
 import com.uros.crud.model.Student;
 import com.uros.crud.repository.StudentRepository;
 import com.uros.crud.service.StudentService;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +20,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Page<Student> getStudents(Pageable pageable) {
-        return studentRepository.findAll(pageable);
+        Specification<Student> specification = new Specification<Student>() {
+            @Override
+            public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("name"), "Mariam");
+            }
+        };
+
+        return studentRepository.findAll(specification, pageable);
     }
 
     @Override
@@ -40,4 +52,5 @@ public class StudentServiceImpl implements StudentService {
         student.setEmail(updatedStudent.getEmail());
         studentRepository.save(student);
     }
+
 }

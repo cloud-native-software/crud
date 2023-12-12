@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class Student {
     @Id
     @GeneratedValue
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     private String name;
     private String email;
+    private Integer grade;
 
 }
