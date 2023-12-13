@@ -1,13 +1,13 @@
 package com.uros.crud.service;
 
 import com.uros.crud.model.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
-import java.util.Optional;
 
 public interface StudentService {
-    List<Student> getStudents();
-    List<Student> getStudentsSortedBy(String field);
+    Page<Student> getStudents(Pageable pageable, Specification<Student> specification);
     Student getStudentById(Long id);
     void addStudent(Student newStudent);
     void deleteStudent(Long id);
