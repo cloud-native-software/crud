@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class FilterSpecificationImpl implements FilterSpecification {
     public Specification<Student> getSearchSpecification(String column, String value) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(column), value);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(column), "%" + value + "%");
     }
 }
