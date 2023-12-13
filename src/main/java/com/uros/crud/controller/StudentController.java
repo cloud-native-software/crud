@@ -1,12 +1,9 @@
 package com.uros.crud.controller;
 
-import com.uros.crud.dto.StudentDto;
+import com.uros.crud.dto.SearchDto;
 import com.uros.crud.model.Student;
+import com.uros.crud.service.FilterSpecification;
 import com.uros.crud.service.StudentService;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,10 +20,14 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping
-    public ResponseEntity<Page<Student>> getStudents(Pageable pageable) {
+    @Autowired
+    private FilterSpecification filterSpecification;
 
-        return new ResponseEntity<>(studentService.getStudents(pageable), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<Page<Student>> getStudents(Pageable pageable, @RequestParam String column, @RequestParam String value) {
+        System.out.println(column);
+        Specification<Student> spec = filterSpecification.getSearchSpecification(column, value);
+        return new ResponseEntity<>(studentService.getStudents(pageable, spec), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

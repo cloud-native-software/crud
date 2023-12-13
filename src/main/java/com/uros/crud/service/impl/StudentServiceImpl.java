@@ -19,13 +19,7 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public Page<Student> getStudents(Pageable pageable) {
-        Specification<Student> specification = new Specification<Student>() {
-            @Override
-            public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("name"), "Mariam");
-            }
-        };
+    public Page<Student> getStudents(Pageable pageable, Specification<Student> specification) {
 
         return studentRepository.findAll(specification, pageable);
     }
