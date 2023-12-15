@@ -16,18 +16,34 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-            Student mariam = new Student(
-                    1L,
-                    "Mariam",
-                    "mariam@gmail.com"
-            );
-            Student alex = new Student(
-                    2L,
-                    "Alex",
-                    "alex@gmail.com"
-            );
+        Student mariam = new Student(
+                1L,
+                "Mariam",
+                "mariam@gmail.com",
+                1
+        );
+        Student alex = new Student(
+                2L,
+                "Alex",
+                "alex@gmail.com",
+                2
 
+        );
+        Student mariam1 = new Student(
+                3L,
+                "Mariam",
+                "mariam@gmail.com",
+                1
 
-            studentRepository.saveAll(List.of(mariam, alex));
+        );
+        Student mariam3 = new Student(
+                4L,
+                "Mariam",
+                "mariam@gmail.com",
+                1
+
+        );
+
+        studentRepository.saveAll(List.of(mariam, mariam1, mariam3, alex));
     }
 }
