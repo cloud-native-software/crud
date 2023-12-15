@@ -1,14 +1,20 @@
 package com.uros.crud.controller;
 
+import com.uros.crud.mapper.StudentFilterMapper;
 import com.uros.crud.model.Student;
+import com.uros.crud.model.StudentFilter;
+import com.uros.crud.model.StudentRequestDTO;
 import com.uros.crud.service.StudentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -18,13 +24,8 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<Student>> getStudents() {
-        return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<List<Student>> getStudentsSortedBy(@RequestParam String field) {
-        return new ResponseEntity<>(studentService.getStudentsSortedBy(field), HttpStatus.OK);
+    public ResponseEntity<Page<Student>> getStudents(Pageable pageable) {
+        return new ResponseEntity<>(studentService.getStudents(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -32,10 +33,10 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student newStudent) {
-        studentService.addStudent(newStudent);
-        return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
+   @PostMapping
+    public ResponseEntity<Student> createStudent(@RequestBody StudentRequestDTO newStudentDTO) {
+       Student student= studentService.addStudent(newStudentDTO);
+        return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -48,5 +49,15 @@ public class StudentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
+    }
+
+    @GetMapping("filterJPQL")
+    public ResponseEntity <Page<Student>> filter(@ModelAttribute StudentFilter studentFilterCriteria, Pageable pageable) {
+        return new ResponseEntity<>(studentService.filterStudents(studentFilterCriteria, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("filterDynamic")
+    public ResponseEntity<Page<Student>> filterDynamic(@ModelAttribute StudentFilter studentFilter, Pageable pageable) {
+        return new ResponseEntity<>(studentService.findDyn(studentFilter, pageable), HttpStatus.OK);
     }
 }

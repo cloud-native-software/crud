@@ -1,15 +1,28 @@
 package com.uros.crud.service;
 
 import com.uros.crud.model.Student;
+import com.uros.crud.model.StudentRequestDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.uros.crud.model.StudentFilter;
+import com.uros.crud.specification.Filter;
+
 
 import java.util.List;
-import java.util.Optional;
 
 public interface StudentService {
-    List<Student> getStudents();
-    List<Student> getStudentsSortedBy(String field);
+    Page<Student> getStudents(Pageable pageable);
+
     Student getStudentById(Long id);
-    void addStudent(Student newStudent);
+
+    Student addStudent(StudentRequestDTO newStudent);
+
     void deleteStudent(Long id);
+
     void updateStudent(Long id, Student updatedStudent);
+
+    Page<Student> filterStudents(StudentFilter student, Pageable pageable);
+
+    public Page<Student> findDyn(StudentFilter studentFilter, Pageable pageable);
 }
