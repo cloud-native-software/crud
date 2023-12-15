@@ -6,18 +6,22 @@ import com.uros.crud.model.StudentFilter;
 import com.uros.crud.model.StudentRequestDTO;
 import com.uros.crud.service.StudentService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/students")
+@Validated
 public class StudentController {
 
     @Autowired
@@ -29,12 +33,12 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<Student> getStudentById(@Positive @PathVariable Long id) {
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
    @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody StudentRequestDTO newStudentDTO) {
+    public ResponseEntity<Student> createStudent(@RequestBody @Valid StudentRequestDTO newStudentDTO) {
        Student student= studentService.addStudent(newStudentDTO);
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
