@@ -20,8 +20,8 @@ public class StudentRequestDTO {
     @Email
     private String email;
     @NotNull
-    @Min(value = 1,message = "must be more then 1 ")
-    @Max(value=5,message = "must be less then 5 ")
+    @Min(value = 1, message = "must be more then 1 ")
+    @Max(value = 5, message = "must be less then 5 ")
     private Integer grade;
 
     public void logStudentInstance() {

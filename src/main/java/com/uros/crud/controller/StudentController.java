@@ -37,9 +37,9 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
-   @PostMapping
+    @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody @Valid StudentRequestDTO newStudentDTO) {
-       Student student= studentService.addStudent(newStudentDTO);
+        Student student = studentService.addStudent(newStudentDTO);
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
@@ -56,12 +56,12 @@ public class StudentController {
     }
 
     @GetMapping("filterJPQL")
-    public ResponseEntity <Page<Student>> filter(@ModelAttribute StudentFilter studentFilterCriteria, Pageable pageable) {
+    public ResponseEntity<Page<Student>> filter(@ModelAttribute @Valid StudentFilter studentFilterCriteria, Pageable pageable) {
         return new ResponseEntity<>(studentService.filterStudents(studentFilterCriteria, pageable), HttpStatus.OK);
     }
 
     @GetMapping("filterDynamic")
-    public ResponseEntity<Page<Student>> filterDynamic(@ModelAttribute StudentFilter studentFilter, Pageable pageable) {
+    public ResponseEntity<Page<Student>> filterDynamic(@ModelAttribute @Valid StudentFilter studentFilter, Pageable pageable) {
         return new ResponseEntity<>(studentService.findDyn(studentFilter, pageable), HttpStatus.OK);
     }
 }

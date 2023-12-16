@@ -1,19 +1,17 @@
 package com.uros.crud.model;
 
 
-import com.uros.crud.specification.Filter;
-import com.uros.crud.specification.QueryOperator;
+import com.uros.crud.validation.student.StudentFilterValid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@StudentFilterValid
 public class StudentFilter {
     private static final Logger LOGGER = Logger.getLogger(Student.class.getName());
     private String name;
